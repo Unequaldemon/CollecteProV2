@@ -30,7 +30,7 @@
         name: "Guidage Circuit Camion",
         short_name: "Circuit Camion",
         description: "Guidage GPS circuit de collecte pour camion",
-        start_url: "./guidage_circuit_camion_v6.html",
+        start_url: "https://unequaldemon.github.io/CollecteProV2/",
         display: "fullscreen",
         orientation: "portrait",
         background_color: "#0d1117",
@@ -675,7 +675,242 @@
     /* Hidden camera input (fallback galerie) */
     #camera-input { display: none; }
 
-    /* ── CAMERA OVERLAY (getUserMedia) ── */
+    /* ══ ÉCRAN DE CONNEXION ══ */
+  #auth-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: linear-gradient(135deg, #0d1117, #161b22);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    font-family: 'Barlow', sans-serif;
+  }
+  #auth-screen.hidden { display: none; }
+
+  .auth-logo {
+    font-size: 56px;
+    margin-bottom: 8px;
+  }
+  .auth-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #f0a500;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .auth-sub {
+    font-size: 12px;
+    color: #8b949e;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .auth-box {
+    width: 100%;
+    max-width: 360px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .auth-field {
+    margin-bottom: 14px;
+  }
+  .auth-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8b949e;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .auth-input {
+    width: 100%;
+    padding: 12px 14px;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    color: #e6edf3;
+    font-size: 15px;
+    font-family: 'Barlow', sans-serif;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+  }
+  .auth-input:focus { border-color: #f0a500; }
+  .auth-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #f0a500, #e05c00);
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    margin-top: 6px;
+    box-shadow: 0 4px 16px rgba(240,165,0,0.3);
+  }
+  .auth-error {
+    color: #f85149;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 12px;
+    min-height: 20px;
+  }
+  .auth-expiry {
+    font-size: 11px;
+    color: #8b949e;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* ══ PANNEAU ADMIN ══ */
+  #admin-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 10050;
+    background: #0d1117;
+    display: none;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  #admin-panel.open { display: flex; transform: translateX(0); }
+
+  .admin-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #161b22;
+    border-bottom: 2px solid #f0a500;
+    flex-shrink: 0;
+  }
+  .admin-back {
+    background: none;
+    border: none;
+    color: #e6edf3;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .admin-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #f0a500;
+    flex: 1;
+  }
+  .admin-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+  }
+  .admin-section {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .admin-section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #f0a500;
+    margin-bottom: 12px;
+  }
+  .admin-field { margin-bottom: 10px; }
+  .admin-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #8b949e;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .admin-field input {
+    width: 100%;
+    padding: 10px 12px;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    color: #e6edf3;
+    font-size: 14px;
+    font-family: 'Barlow', sans-serif;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .admin-field input:focus { border-color: #f0a500; }
+  .admin-add-btn {
+    width: 100%;
+    padding: 12px;
+    background: #3fb950;
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  .user-card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .user-card-info { flex: 1; }
+  .user-card-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #e6edf3;
+    text-transform: uppercase;
+  }
+  .user-card-expiry {
+    font-size: 11px;
+    margin-top: 2px;
+    font-weight: 600;
+  }
+  .user-card-expiry.valid { color: #3fb950; }
+  .user-card-expiry.expired { color: #f85149; }
+  .user-card-expiry.soon { color: #f0a500; }
+  .user-card-actions { display: flex; gap: 6px; }
+  .user-btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    text-transform: uppercase;
+  }
+  .user-btn.renew { background: #1565c0; color: #fff; }
+  .user-btn.delete { background: #f85149; color: #fff; }
     /* Bouton raccourci contrôles sur la carte */
     #map-controls-fab {
       position: absolute;
@@ -1654,7 +1889,63 @@
 </head>
 <body>
 
-  <!-- ══ STRUCTURE PRINCIPALE : 2 PAGES + BARRE ONGLETS ══ -->
+  <!-- ══ ÉCRAN DE CONNEXION ══ -->
+  <div id="auth-screen">
+    <div class="auth-logo">🚛</div>
+    <div class="auth-title">Guidage Circuit Camion</div>
+    <div class="auth-sub">Accès réservé — Identifiez-vous</div>
+    <div class="auth-box">
+      <div class="auth-field">
+        <label class="auth-label">Identifiant</label>
+        <input class="auth-input" id="auth-user" type="text" placeholder="Votre identifiant" autocomplete="username" autocorrect="off" autocapitalize="none">
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Mot de passe</label>
+        <input class="auth-input" id="auth-pass" type="password" placeholder="Votre mot de passe" autocomplete="current-password">
+      </div>
+      <button class="auth-btn" id="auth-submit">🔓 Se connecter</button>
+      <div class="auth-error" id="auth-error"></div>
+      <div class="auth-expiry" id="auth-expiry"></div>
+    </div>
+  </div>
+
+  <!-- ══ PANNEAU ADMIN — Gestion des comptes ══ -->
+  <div id="admin-panel">
+    <div class="admin-header">
+      <button class="admin-back" id="admin-back">←</button>
+      <div class="admin-title">⚙️ Administration — Comptes</div>
+    </div>
+    <div class="admin-body">
+
+      <!-- Créer un compte utilisateur -->
+      <div class="admin-section">
+        <div class="admin-section-title">➕ Créer un compte utilisateur</div>
+        <div class="admin-field">
+          <label>Identifiant</label>
+          <input type="text" id="new-user-id" placeholder="ex: chauffeur1" autocorrect="off" autocapitalize="none">
+        </div>
+        <div class="admin-field">
+          <label>Mot de passe</label>
+          <input type="text" id="new-user-pass" placeholder="ex: motdepasse123">
+        </div>
+        <div class="admin-field">
+          <label>Date d'expiration</label>
+          <input type="date" id="new-user-expiry">
+        </div>
+        <button class="admin-add-btn" id="admin-add-user">✅ Créer le compte</button>
+        <div id="admin-add-error" style="color:#f85149;font-size:12px;margin-top:8px;min-height:16px;"></div>
+      </div>
+
+      <!-- Liste des comptes -->
+      <div class="admin-section">
+        <div class="admin-section-title">👥 Comptes utilisateurs</div>
+        <div id="admin-user-list">
+          <div style="color:#8b949e;font-size:13px;text-align:center;padding:12px;">Aucun compte utilisateur</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
   <div id="app">
 
     <!-- ── PAGES ── -->
@@ -1866,6 +2157,16 @@
             <button class="btn" id="openPhotoPanelBtn" style="grid-column:1/-1;width:100%;">
               <span class="icon">📸</span>Bacs non conformes
               <span id="photo-fab-badge2" style="background:#f85149;color:#fff;border-radius:10px;min-width:18px;height:18px;display:none;align-items:center;justify-content:center;font-size:10px;font-weight:800;padding:0 4px;margin-left:4px;"></span>
+            </button>
+          </div>
+
+          <!-- Admin + Déconnexion (visibles selon le rôle) -->
+          <div class="btn-row" style="margin-top:8px;" id="admin-btn-row" style="display:none;">
+            <button class="btn" id="open-admin-btn" style="background:#161b22;border-color:#f0a500;color:#f0a500;display:none;">
+              <span class="icon">⚙️</span>Admin
+            </button>
+            <button class="btn" id="logout-btn" style="background:#161b22;border-color:#f85149;color:#f85149;">
+              <span class="icon">🔒</span>Déconnexion
             </button>
           </div>
 
@@ -5188,12 +5489,229 @@ ${chunk.map((p,i) => {
       speak('Itinéraire camion chargé. Vous pouvez activer le guidage.');
     });
 
-    // ── SERVICE WORKER (PWA) ─────────────────────────────────────────────
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('Service Worker enregistré'))
-        .catch(e => console.warn('SW non enregistré :', e));
+    // ══════════════════════════════════════════════════════════════════════
+    // SYSTÈME D'AUTHENTIFICATION
+    // ══════════════════════════════════════════════════════════════════════
+    const ADMIN = {
+      id:   'Unequaldemon33550',
+      pass: 'Ryukensan33!',
+      role: 'admin'
+    };
+
+    const AUTH_KEY   = 'gcc_auth_session';
+    const USERS_KEY  = 'gcc_users';
+
+    // ── Gestion des utilisateurs (localStorage) ──────────────────────────
+    function getUsers() {
+      try { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); } catch(e) { return []; }
     }
+    function saveUsers(users) {
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    }
+
+    // ── Vérification des identifiants ────────────────────────────────────
+    function checkCredentials(id, pass) {
+      // Admin
+      if (id === ADMIN.id && pass === ADMIN.pass) {
+        return { ok: true, role: 'admin', expiry: null };
+      }
+      // Utilisateurs
+      const users = getUsers();
+      const user  = users.find(u => u.id === id && u.pass === pass);
+      if (!user) return { ok: false, reason: 'Identifiant ou mot de passe incorrect.' };
+      const now = new Date();
+      const exp = new Date(user.expiry);
+      if (now > exp) return { ok: false, reason: `Compte expiré le ${exp.toLocaleDateString('fr-FR')}. Contactez l'administrateur.` };
+      return { ok: true, role: 'user', expiry: user.expiry, name: user.id };
+    }
+
+    // ── Session ──────────────────────────────────────────────────────────
+    function saveSession(role, expiry) {
+      sessionStorage.setItem(AUTH_KEY, JSON.stringify({ role, expiry, ts: Date.now() }));
+    }
+    function getSession() {
+      try { return JSON.parse(sessionStorage.getItem(AUTH_KEY)); } catch(e) { return null; }
+    }
+    function clearSession() {
+      sessionStorage.removeItem(AUTH_KEY);
+    }
+
+    // ── UI Auth ──────────────────────────────────────────────────────────
+    const authScreen  = document.getElementById('auth-screen');
+    const authUser    = document.getElementById('auth-user');
+    const authPass    = document.getElementById('auth-pass');
+    const authSubmit  = document.getElementById('auth-submit');
+    const authError   = document.getElementById('auth-error');
+    const authExpiry  = document.getElementById('auth-expiry');
+    const adminPanel  = document.getElementById('admin-panel');
+    const adminBack   = document.getElementById('admin-back');
+    const openAdminBtn= document.getElementById('open-admin-btn');
+    const logoutBtn   = document.getElementById('logout-btn');
+    const adminBtnRow = document.getElementById('admin-btn-row');
+
+    function showApp(role, expiry) {
+      authScreen.classList.add('hidden');
+      adminBtnRow.style.display = 'flex';
+      if (role === 'admin') {
+        openAdminBtn.style.display = 'flex';
+      } else {
+        openAdminBtn.style.display = 'none';
+      }
+    }
+
+    function showLogin(msg) {
+      authScreen.classList.remove('hidden');
+      adminBtnRow.style.display = 'none';
+      if (msg) { authError.textContent = msg; }
+    }
+
+    // Vérifier session existante
+    const sess = getSession();
+    if (sess && sess.role) {
+      // Vérifier expiration pour les users
+      if (sess.role === 'user' && sess.expiry) {
+        const exp = new Date(sess.expiry);
+        if (new Date() > exp) {
+          clearSession();
+          showLogin('Votre session a expiré.');
+        } else {
+          showApp(sess.role, sess.expiry);
+        }
+      } else {
+        showApp(sess.role, null);
+      }
+    }
+    // Sinon l'écran de login est déjà affiché par défaut
+
+    // Login
+    function doLogin() {
+      const id   = authUser.value.trim();
+      const pass = authPass.value;
+      authError.textContent = '';
+      if (!id || !pass) { authError.textContent = 'Veuillez remplir tous les champs.'; return; }
+      const result = checkCredentials(id, pass);
+      if (!result.ok) {
+        authError.textContent = result.reason;
+        authPass.value = '';
+        return;
+      }
+      saveSession(result.role, result.expiry);
+      showApp(result.role, result.expiry);
+      if (result.expiry) {
+        const exp  = new Date(result.expiry);
+        const days = Math.ceil((exp - new Date()) / 86400000);
+        authExpiry.textContent = `Accès valide jusqu'au ${exp.toLocaleDateString('fr-FR')} (${days} jours)`;
+      }
+      authUser.value = '';
+      authPass.value = '';
+    }
+
+    authSubmit.addEventListener('click', doLogin);
+    authPass.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+    authUser.addEventListener('keydown', e => { if (e.key === 'Enter') authPass.focus(); });
+
+    // Déconnexion
+    logoutBtn.addEventListener('click', () => {
+      clearSession();
+      showLogin('');
+      authError.textContent = '';
+    });
+
+    // ── PANNEAU ADMIN ─────────────────────────────────────────────────────
+    openAdminBtn.addEventListener('click', () => {
+      adminPanel.classList.add('open');
+      renderUserList();
+    });
+    adminBack.addEventListener('click', () => {
+      adminPanel.classList.remove('open');
+      setTimeout(() => { adminPanel.style.display = 'none'; adminPanel.style.display = ''; }, 350);
+    });
+
+    // Date min = aujourd'hui pour le sélecteur
+    const newExpiryInput = document.getElementById('new-user-expiry');
+    const today = new Date().toISOString().split('T')[0];
+    newExpiryInput.min = today;
+    // Par défaut : 1 an
+    const nextYear = new Date();
+    nextYear.setFullYear(nextYear.getFullYear() + 1);
+    newExpiryInput.value = nextYear.toISOString().split('T')[0];
+
+    // Ajouter un utilisateur
+    document.getElementById('admin-add-user').addEventListener('click', () => {
+      const id     = document.getElementById('new-user-id').value.trim();
+      const pass   = document.getElementById('new-user-pass').value.trim();
+      const expiry = document.getElementById('new-user-expiry').value;
+      const errEl  = document.getElementById('admin-add-error');
+      errEl.textContent = '';
+
+      if (!id || !pass || !expiry) { errEl.textContent = 'Tous les champs sont obligatoires.'; return; }
+      if (id === ADMIN.id)         { errEl.textContent = 'Cet identifiant est réservé.'; return; }
+
+      const users = getUsers();
+      if (users.find(u => u.id === id)) { errEl.textContent = 'Cet identifiant existe déjà.'; return; }
+
+      users.push({ id, pass, expiry, createdAt: new Date().toISOString() });
+      saveUsers(users);
+
+      document.getElementById('new-user-id').value   = '';
+      document.getElementById('new-user-pass').value  = '';
+      nextYear.setFullYear(new Date().getFullYear() + 1);
+      newExpiryInput.value = nextYear.toISOString().split('T')[0];
+      errEl.textContent = '';
+      renderUserList();
+    });
+
+    function renderUserList() {
+      const users  = getUsers();
+      const list   = document.getElementById('admin-user-list');
+      if (!users.length) {
+        list.innerHTML = '<div style="color:#8b949e;font-size:13px;text-align:center;padding:12px;">Aucun compte utilisateur</div>';
+        return;
+      }
+      list.innerHTML = users.map((u, i) => {
+        const exp  = new Date(u.expiry);
+        const now  = new Date();
+        const days = Math.ceil((exp - now) / 86400000);
+        let cls = 'valid', label = `Expire le ${exp.toLocaleDateString('fr-FR')} (${days}j)`;
+        if (days < 0)   { cls = 'expired'; label = `Expiré le ${exp.toLocaleDateString('fr-FR')}`; }
+        else if (days < 30) { cls = 'soon'; label = `⚠ Expire dans ${days} jours`; }
+        return `
+          <div class="user-card">
+            <div class="user-card-info">
+              <div class="user-card-name">👤 ${u.id}</div>
+              <div class="user-card-expiry ${cls}">${label}</div>
+            </div>
+            <div class="user-card-actions">
+              <button class="user-btn renew" onclick="renewUser(${i})">+1 an</button>
+              <button class="user-btn delete" onclick="deleteUser(${i})">✕</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    window.renewUser = function(i) {
+      const users = getUsers();
+      const exp   = new Date(users[i].expiry);
+      const base  = exp > new Date() ? exp : new Date();
+      base.setFullYear(base.getFullYear() + 1);
+      users[i].expiry = base.toISOString().split('T')[0];
+      saveUsers(users);
+      renderUserList();
+    };
+
+    window.deleteUser = function(i) {
+      const users = getUsers();
+      if (!confirm(`Supprimer le compte "${users[i].id}" ?`)) return;
+      users.splice(i, 1);
+      saveUsers(users);
+      renderUserList();
+    };
+
+    // ── SERVICE WORKER (PWA) ─────────────────────────────────────────────
+    // Service Worker désactivé — pas de sw.js sur GitHub Pages
+    // if ('serviceWorker' in navigator) {
+    //   navigator.serviceWorker.register('sw.js')
+    // }
   </script>
 </body>
 </html>
